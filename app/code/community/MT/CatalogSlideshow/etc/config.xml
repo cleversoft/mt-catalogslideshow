@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    MT
+ * @package     MT_CatalogSlideshow
+ * @copyright   Copyright (C) 2008-2014 MagentoThemes.net. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      MagentoThemes.net
+ * @email       support@magentothemes.net
+ */
+-->
+<config>
+    <modules>
+        <MT_CatalogSlideshow>
+            <version>0.4</version>
+        </MT_CatalogSlideshow>
+    </modules>
+
+    <global>
+        <blocks>
+            <mtcatalogslideshow>
+                <class>MT_CatalogSlideshow_Block</class>
+            </mtcatalogslideshow>
+        </blocks>
+        <helpers>
+            <mtcatalogslideshow>
+                <class>MT_CatalogSlideshow_Helper</class>
+            </mtcatalogslideshow>
+        </helpers>
+        <resources>
+            <mtcatalogslideshow_setup>
+                <setup>
+                    <module>MT_CatalogSlideshow</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </mtcatalogslideshow_setup>
+        </resources>
+        <events>
+            <catalog_category_prepare_save>
+                <observers>
+                    <mtcatalogslideshow>
+                        <type>singleton</type>
+                        <class>MT_CatalogSlideshow_Model_Observer</class>
+                        <method>catalogCategoryPrepareSave</method>
+                    </mtcatalogslideshow>
+                </observers>
+            </catalog_category_prepare_save>
+            <adminhtml_catalog_category_tabs>
+                <observers>
+                    <mtcatalogslideshow>
+                        <type>singleton</type>
+                        <class>MT_CatalogSlideshow_Model_Observer</class>
+                        <method>adminhtmlCatalogCategoryTabs</method>
+                    </mtcatalogslideshow>
+                </observers>
+            </adminhtml_catalog_category_tabs>
+        </events>
+    </global>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <MT_CatalogSlideshow>
+                    <files>
+                        <default>MT_CatalogSlideshow.csv</default>
+                    </files>
+                </MT_CatalogSlideshow>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <mtcatalogslideshow>
+                    <file>mt_catalogslideshow.xml</file>
+                </mtcatalogslideshow>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <frontend>
+        <layout>
+            <updates>
+                <mtcatalogslideshow>
+                    <file>mt_catalogslideshow.xml</file>
+                </mtcatalogslideshow>
+            </updates>
+        </layout>
+    </frontend>
+</config>

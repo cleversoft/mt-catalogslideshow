@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    MT
+ * @package     MT_CatalogSlideshow
+ * @copyright   Copyright (C) 2008-2014 MagentoThemes.net. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      MagentoThemes.net
+ * @email       support@magentothemes.net
+ */
+-->
+<layout version="0.1.0">
+    <catalog_category_default>
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>mt/extensions/jquery/plugins/owl-carousel/owl.carousel.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>mt/extensions/jquery/plugins/owl-carousel/owl.theme.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>mt/extensions/jquery/plugins/owl-carousel/owl.transitions.css</name>
+            </action>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_layered>
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>mt/extensions/jquery/plugins/owl-carousel/owl.carousel.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>mt/extensions/jquery/plugins/owl-carousel/owl.theme.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>mt/extensions/jquery/plugins/owl-carousel/owl.transitions.css</name>
+            </action>
+        </reference>
+    </catalog_category_layered>
+</layout>

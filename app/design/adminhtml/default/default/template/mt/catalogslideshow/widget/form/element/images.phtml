@@ -1,0 +1,90 @@
+<?php
+/**
+ * @category    MT
+ * @package     MT_CatalogSlideshow
+ * @copyright   Copyright (C) 2008-2014 MagentoThemes.net. All Rights Reserved.
+ * @license     GNU General Public License version 2 or later
+ * @author      MagentoThemes.net
+ * @email       support@magentothemes.net
+ */
+?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td class="grid">
+        <table cellspacing="0" class="data border" id="<?php echo $this->getElement()->getHtmlId() ?>">
+            <thead>
+                <tr class="headings">
+                    <th><?php echo Mage::helper('mtcatalogslideshow')->__('Preview') ?></th>
+                    <th><?php echo Mage::helper('mtcatalogslideshow')->__('Image Url') ?></th>
+                    <th><?php echo Mage::helper('mtcatalogslideshow')->__('Image Link') ?></th>
+                    <th><?php echo Mage::helper('mtcatalogslideshow')->__('Link Target') ?></th>
+                    <th><?php echo Mage::helper('mtcatalogslideshow')->__('Browse') ?></th>
+                    <th><?php echo Mage::helper('mtcatalogslideshow')->__('Delete') ?></th>
+                </tr>
+            </thead>
+            <tbody id="<?php echo $this->getElement()->getHtmlId() ?>_container"></tbody>
+            <tfoot>
+                <td colspan="6" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tfoot>
+        </table>
+    </td>
+</tr>
+<script type="text/javascript">
+    var imageRowTemplate = '<tr>'+
+        '<td><span class="preview">{{preview}}</span></td>'+
+        '<td><input onchange="window.catalogSlideshow.change(this)" type="text" class="input-text" name="mt_catalogslideshow_images[]" id="mt_catalogslideshow_images_{{id}}" value="{{value}}"/></td>'+
+        '<td><input type="text" name="mt_catalogslideshow_links[]" value="{{link}}"/></td>'+
+        '<td><select name="mt_catalogslideshow_links_target[]" id="mt_catalogslideshow_links_target_{{id}}">'+
+        '<option value="_self"><?php echo Mage::helper('mtcatalogslideshow')->__('Same Window') ?></option>'+
+        '<option value="_blank"><?php echo Mage::helper('mtcatalogslideshow')->__('New Window') ?></option>'+
+        '</select></td>'+
+        '<td class="a-center"><button class="button" type="button" onclick="MT.MediabrowserUtility.openDialog(\'<?php echo Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg_images/index') ?>static_urls_allowed/1/target_element_id/mt_catalogslideshow_images_{{id}}\')"><span><?php echo $this->__('Select') ?></span></button></td>'+
+        '<td class="a-center"><?php echo $this->getDeleteButtonHtml() ?></td>'+
+        '</tr>';
+
+    window.catalogSlideshow = {
+        baseUrl: '<?php echo Mage::getBaseUrl('media') ?>',
+        template: new Template(imageRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+        itemsCount: 0,
+        container: $('<?php echo $this->getElement()->getHtmlId() ?>_container'),
+
+        add: function(){
+            var image = arguments.length >= 1 ? arguments[0] : '',
+                link = arguments.length >= 2 ? arguments[1] : '',
+                link_target = arguments.length >= 3 ? arguments[2] : '';
+
+            var data = {
+                preview: image ? this.renderPreview(image) : '',
+                value: image || '',
+                link: link,
+                id: ++this.itemsCount
+            };
+
+            this.container.insert({bottom: this.template.evaluate(data)});
+
+            $('mt_catalogslideshow_links_target_' + this.itemsCount).value = link_target;
+        },
+
+        remove: function(td){
+            var tr = $(td).up('tr');
+            if (tr) tr.remove();
+        },
+
+        change: function(elm){
+            var uri = $(elm).value,
+                preview = $(elm).up('tr').down('span.preview');
+
+            if (preview){
+                $(preview).update(this.renderPreview(uri));
+            }
+        },
+
+        renderPreview: function(uri){
+            return '<img src="'+this.baseUrl + uri +'" width="100px"/>';
+        }
+    };
+
+    <?php foreach ($this->getItems() as $item): ?>
+    window.catalogSlideshow.add('<?php echo $item['url'] ?>', '<?php echo $item['link'] ?>', '<?php echo $item['target'] ?>');
+    <?php endforeach ?>
+</script>
