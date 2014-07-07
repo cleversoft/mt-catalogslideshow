@@ -9,7 +9,7 @@
  */
 
 class MT_CatalogSlideshow_Block_Adminhtml_Widget_Form_Element_Images
-    extends Mage_Adminhtml_Block_Widget
+    extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
     implements Varien_Data_Form_Element_Renderer_Interface{
 
     protected $_element;
@@ -68,9 +68,9 @@ class MT_CatalogSlideshow_Block_Adminhtml_Widget_Form_Element_Images
         $object = Mage::helper('core')->jsonDecode($category->getData('mt_catalogslideshow_data'));
         if (!is_array($object)) return $items;
         foreach ($object as $item){
-            if (isset($item['uri']) && $item['uri']){
+            if (isset($item['url']) && $item['url']){
                 $items[] = array(
-                    'url'   => $item['uri'],
+                    'url'   => $item['url'],
                     'link'  => $item['link'],
                     'target'=> $item['target']
                 );

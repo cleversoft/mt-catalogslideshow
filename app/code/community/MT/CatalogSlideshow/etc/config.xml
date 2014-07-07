@@ -12,7 +12,7 @@
 <config>
     <modules>
         <MT_CatalogSlideshow>
-            <version>0.4</version>
+            <version>0.5</version>
         </MT_CatalogSlideshow>
     </modules>
 
@@ -27,6 +27,11 @@
                 <class>MT_CatalogSlideshow_Helper</class>
             </mtcatalogslideshow>
         </helpers>
+        <models>
+            <mtcatalogslideshow>
+                <class>MT_CatalogSlideshow_Model</class>
+            </mtcatalogslideshow>
+        </models>
         <resources>
             <mtcatalogslideshow_setup>
                 <setup>
@@ -39,7 +44,7 @@
             </mtcatalogslideshow_setup>
         </resources>
         <events>
-            <catalog_category_prepare_save>
+            <!--catalog_category_prepare_save>
                 <observers>
                     <mtcatalogslideshow>
                         <type>singleton</type>
@@ -56,7 +61,7 @@
                         <method>adminhtmlCatalogCategoryTabs</method>
                     </mtcatalogslideshow>
                 </observers>
-            </adminhtml_catalog_category_tabs>
+            </adminhtml_catalog_category_tabs-->
         </events>
     </global>
 

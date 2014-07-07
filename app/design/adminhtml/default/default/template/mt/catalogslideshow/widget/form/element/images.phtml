@@ -8,10 +8,23 @@
  * @email       support@magentothemes.net
  */
 ?>
+<?php
+/* @var $this MT_CatalogSlideshow_Block_Adminhtml_Widget_Form_Element_Images */
+$_element = $this->getElement();
+$this->checkFieldDisable();
+?>
 <tr>
     <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
     <td class="grid">
-        <table cellspacing="0" class="data border" id="<?php echo $this->getElement()->getHtmlId() ?>">
+        <table cellspacing="0" class="data border" id="<?php echo $this->getElement()->getHtmlId() ?>" style="width: 600px">
+            <colgroup>
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
+            </colgroup>
             <thead>
                 <tr class="headings">
                     <th><?php echo Mage::helper('mtcatalogslideshow')->__('Preview') ?></th>
@@ -24,17 +37,26 @@
             </thead>
             <tbody id="<?php echo $this->getElement()->getHtmlId() ?>_container"></tbody>
             <tfoot>
-                <td colspan="6" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+                <tr>
+                    <td colspan="6" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+                </tr>
             </tfoot>
         </table>
     </td>
+    <td class="scope-label"><span class="nobr"><?php echo $this->getScopeLabel() ?></span></td>
+    <?php if ($this->canDisplayUseDefault()): ?>
+        <td class="value use-default">
+            <input <?php if($_element->getReadonly()): ?> disabled="disabled"<?php endif; ?> type="checkbox" name="use_default[]" id="<?php echo $_element->getHtmlId() ?>_default"<?php if ($this->usedDefault()): ?> checked="checked"<?php endif; ?> onclick="toggleValueElements(this, this.parentNode.parentNode, this.parentNode.parentNode.select('.slidePreview'))" value="<?php echo $this->getAttributeCode() ?>"/>
+            <label for="<?php echo $_element->getHtmlId() ?>_default" class="normal"><?php echo $this->__('Use Default Value') ?></label>
+        </td>
+    <?php endif; ?>
 </tr>
 <script type="text/javascript">
     var imageRowTemplate = '<tr>'+
         '<td><span class="preview">{{preview}}</span></td>'+
-        '<td><input onchange="window.catalogSlideshow.change(this)" type="text" class="input-text" name="mt_catalogslideshow_images[]" id="mt_catalogslideshow_images_{{id}}" value="{{value}}"/></td>'+
-        '<td><input type="text" name="mt_catalogslideshow_links[]" value="{{link}}"/></td>'+
-        '<td><select name="mt_catalogslideshow_links_target[]" id="mt_catalogslideshow_links_target_{{id}}">'+
+        '<td><input name="<?php echo $_element->getName() ?>[images][]" onchange="window.catalogSlideshow.change(this)" type="text" class="input-text" id="mt_catalogslideshow_images_{{id}}" value="{{value}}"/></td>'+
+        '<td><input name="<?php echo $_element->getName() ?>[links][]" type="text" value="{{link}}" class="input-text"/></td>'+
+        '<td><select name="<?php echo $_element->getName() ?>[targets][]" id="mt_catalogslideshow_links_target_{{id}}">'+
         '<option value="_self"><?php echo Mage::helper('mtcatalogslideshow')->__('Same Window') ?></option>'+
         '<option value="_blank"><?php echo Mage::helper('mtcatalogslideshow')->__('New Window') ?></option>'+
         '</select></td>'+
@@ -80,11 +102,16 @@
         },
 
         renderPreview: function(uri){
-            return '<img src="'+this.baseUrl + uri +'" width="100px"/>';
+            return '<img src="'+this.baseUrl + uri +'" width="100px" class="slidePreview"/>';
         }
     };
 
     <?php foreach ($this->getItems() as $item): ?>
     window.catalogSlideshow.add('<?php echo $item['url'] ?>', '<?php echo $item['link'] ?>', '<?php echo $item['target'] ?>');
     <?php endforeach ?>
+
+    <?php if ($this->usedDefault()): ?>
+    var checkbox = $('<?php echo $_element->getHtmlId() ?>_default');
+    checkbox && toggleValueElements(checkbox, checkbox.parentNode.parentNode, checkbox.parentNode.parentNode.select('.slidePreview'));
+    <?php endif ?>
 </script>

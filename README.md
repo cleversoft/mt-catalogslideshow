@@ -1,4 +1,4 @@
-# MT Catalog Slide Show Magento Extension
+# MT Catalog Slide Show Magento Extension (v0.5)
 
 ## Overview
 
@@ -39,15 +39,13 @@ Allow config & insert a slide show into category page view
 * Because lack of position from default category page view, you need add slide show manualy to template. This step only need do once and effect to all category, you dont need add code again for other category.
 * Access to Magento installation directory (using FTP for remote host)
 * Goto `app / design / frontend / [your theme package] / [your theme] / template`
+
+
 * Find file with name `view.phtml` in `catalog / category` directory. If you dont have this directory, copy it from `app / design / frontend / base / default / template / catalog / category`
 * Add line `<?php echo Mage::helper('mtcatalogslideshow')->slideShow($_category) ?>` to any position you want to show, nomarlly under category image and before category description
 * ![code](doc/2.png)
 * Go to your website, open category link, it will show a nice slide show here
 * Note: If you using slide show for a category, you should consider remove its Image & Description
-
-## Bugs
-
-* Multi language not support yet, category slide show will applied for all store view in a website
 
 ## FAQ
 

@@ -17,10 +17,10 @@ $id = $this->getHtmlId();
         <?php foreach ($this->getSlides() as $slide): ?>
             <?php if ($slide['link']): ?>
                 <a href="<?php echo $slide['link'] ?>" target="<?php echo $slide['target'] ?>">
-                    <img class="lazyOwl" data-src="<?php echo strpos($slide['uri'], 'http') === 0 ? $slide['uri'] : Mage::getBaseUrl('media') . $slide['uri'] ?>"/>
+                    <img class="lazyOwl" data-src="<?php echo strpos($slide['url'], 'http') === 0 ? $slide['url'] : Mage::getBaseUrl('media') . $slide['url'] ?>"/>
                 </a>
             <?php else: ?>
-                <img src="<?php echo strpos($slide['uri'], 'http') === 0 ? $slide['uri'] : Mage::getBaseUrl('media') . $slide['uri'] ?>"/>
+                <img src="<?php echo strpos($slide['url'], 'http') === 0 ? $slide['url'] : Mage::getBaseUrl('media') . $slide['url'] ?>"/>
             <?php endif ?>
         <?php endforeach ?>
     </div>
